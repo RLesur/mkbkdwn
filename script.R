@@ -15,7 +15,7 @@ needs_build <- function(output_dir, config_file) {
   yes_build <- TRUE
   attr(yes_build, "sha") <- df
 
-  if (identical(dir.exists(output_dir), FALSE)) {
+  if (!dir.exists(output_dir)) {
     message(output_dir, " does not exist. Bookdown needs to be built.")
     return(yes_build)
   }
