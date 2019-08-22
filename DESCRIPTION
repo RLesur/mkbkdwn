@@ -1,0 +1,8 @@
+Package: mkbkdwn
+Type: Book
+Title: make, travis and bookdown
+Version: 0.0.0.9000
+Imports: bookdown
+License: MIT
+Description: Nothing of interest.Just some personal tests.
+Authors@R: person("Romain", "Lesur", role = c("ctb", "cre"), email = "romain.lesur@gmail.com", comment = c(ORCID = "0000-0002-0721-5595"))
