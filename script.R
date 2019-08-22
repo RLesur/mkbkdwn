@@ -5,9 +5,9 @@ get_sha <- function(file) {
 }
 
 needs_build <- function(output_dir, config_file) {
-  rmd_files <- list.files(pattern = "\\.Rmd$")
+  source_files <- bookdown:::source_files(all = TRUE)
   aux_files <- c(config_file, list.files(pattern = "^_output\\.yml$"))
-  tracked_files <- c(rmd_files, aux_files)
+  tracked_files <- c(source_files, aux_files)
   
   current_sha <- vapply(tracked_files, get_sha, character(1), USE.NAMES = FALSE)
   df <- as.data.frame(list(file = tracked_files, sha = current_sha), stringsAsFactors = FALSE)
@@ -42,22 +42,27 @@ needs_build <- function(output_dir, config_file) {
   }
 }
 
-render_book_eventually <- function(
-  input, output_format = NULL, ..., output_dir = NULL, config_file = "_bookdown.yml"
+render_book_maybe <- function(
+  input, output_format = NULL, ..., output_dir = NULL, 
+  config_file = "_bookdown.yml", envir = parent.frame()
 ) {
-  force(config_file)
   bookdown:::opts$set(config = rmarkdown:::yaml_load_file(config_file))
   output_dir <- bookdown:::output_dirname(output_dir, create = FALSE)
   csv_path <- file.path(output_dir, "sha.csv")
   to_build <- needs_build(output_dir, config_file)
-  od <- output_dir
-  bookdown::render_book(input = input, output_format = output_format, output_dir = od, config_file = "_bookdown.yml", ..., clean_envir = FALSE)
   
-   if (to_build)
+   if (to_build) {
+     bookdown::render_book(input = input, 
+                           output_format = output_format, 
+                           output_dir = output_dir, 
+                           config_file = "_bookdown.yml", 
+                           envir = envir, 
+                           ...)
      write.csv(attr(to_build, "sha"), csv_path, row.names = FALSE)
+   }
    else {
     message("No source file have changed.")
   }
 }
 
-render_book_eventually(".")
+render_book_maybe(".")

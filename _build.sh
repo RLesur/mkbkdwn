@@ -2,4 +2,4 @@
 
 set -ev
 
-make all
+Rscript script.R
