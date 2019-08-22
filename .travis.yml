@@ -10,6 +10,8 @@ before_script:
   - chmod +x ./_build.sh
   - chmod +x ./_deploy.sh
 script:
+  - ls -l index.Rmd
+  - ls -l _book/*
   - ./_build.sh
 deploy:
   provider: script
