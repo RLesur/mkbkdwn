@@ -2,4 +2,4 @@
 
 set -ev
 
-"${TRAVIS_BUILD_DIR}/script.R"
+./render_book_maybe.R
