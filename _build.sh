@@ -2,4 +2,4 @@
 
 set -ev
 
-Rscript script.R
+./script.R

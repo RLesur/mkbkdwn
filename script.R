@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 get_sha <- function(file) {
   sha <- system2("git", c("log", "-n", "1", "--pretty=format:%H", "--", file), stdout = TRUE)
   if (length(sha) < 1L) return("")

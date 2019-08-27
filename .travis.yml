@@ -7,6 +7,7 @@ cache:
   directories:
     - $TRAVIS_BUILD_DIR/_book
 before_script:
+  - chomd +x ./script.R
   - chmod +x ./_build.sh
   - chmod +x ./_deploy.sh
 script:
