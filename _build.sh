@@ -2,4 +2,4 @@
 
 set -ev
 
-"${TRAVIS_REPO_SLUG}/script.R"
+"${TRAVIS_BUILD_DIR}/script.R"
